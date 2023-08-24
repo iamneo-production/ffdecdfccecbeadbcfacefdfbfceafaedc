@@ -38,7 +38,8 @@ public class TaskController {
         return service.getallTasks();
     }
     @GetMapping("/getTask")
-    private Taskentity getTask(@RequestParam("id") String id){
+    private Taskentity getTask(@RequestParam("id") String id)
+    {
         return service.gettaskbyid(id);
     }
 
