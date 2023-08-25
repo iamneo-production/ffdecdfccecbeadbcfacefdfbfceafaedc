@@ -1,14 +1,6 @@
-package com.examly.springapp.repository;
-
-import com.examly.springapp.entity.Taskentity;
+package com.examly.springapp;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
-import java.util.Optional;
- 
-@Repository
-public interface TaskRepository  extends JpaRepository<Taskentity,String>
+public interface TaskRepo extends JpaRepository<Task,String>
 {
-Optional<Taskentity> findByTaskId(String taskid);
-void deleteByTaskId(String taskid);
-
+    
 }

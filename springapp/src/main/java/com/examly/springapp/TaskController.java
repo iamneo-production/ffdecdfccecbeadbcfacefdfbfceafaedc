@@ -1,46 +1,39 @@
-package com.examly.springapp.controller;
-
-import com.examly.springapp.entity.Taskentity;
-import com.examly.springapp.service.TaskService;
+package com.examly.springapp;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping()
-public class TaskController {
+public class Task_Controller {
     @Autowired
-    private TaskService service;
-    
-    @PostMapping("/saveTask")
-    public Taskentity saveTask(@RequestBody Taskentity taskentity){
-        Taskentity output = service.saveTask(taskentity);
-        return output;
-    }
-
-
-    @GetMapping("/changeStatus")
-    private Taskentity updatetaskStatus(@RequestParam("id") String id){
-        return service.updatetaskStatus(id);
-    }
-
-    @GetMapping("/deleteTask")
-    private String deleteTask(@RequestParam("id") String id){
-        return service.deleteTask(id);
-    }
-    @GetMapping("/alltasks")
-    private List<Taskentity> getallTasks(){
-        return service.getallTasks();
-    }
-
-    @GetMapping("/getTask")
-    private Taskentity getTask(@RequestParam("id") String id){
-        return service.gettaskbyid(id);
-    }
+    TaskRepo taskrepo;
+       @PostMapping("/saveTask")
+       public Task create(@Value(value="") @RequestBody Task taskobj)
+       {
+           
+           return taskrepo.save(taskobj);
+       }
+       @GetMapping("/alltasks")
+       public List<Task> getAll()
+       {
+           return taskrepo.findAll();
+       }
+       @GetMapping("/getTask?id=<taskId>")
+       public Optional<Task> getTaskHolderName(@PathVariable(value = "taskHolderName") String taskHolderName)
+        {
+           return taskrepo.findById(taskHolderName);
+        }
+        @GetMapping("/deleteTask?id=<taskId>")
+       public void deleteTask(@PathVariable(value = "taskId") String taskId)
+        {
+           taskrepo.deleteById(taskId);
+        }
+     
+        
 }
