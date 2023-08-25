@@ -1,4 +1,5 @@
 package com.examly.springapp.controller;
+
 import com.examly.springapp.entity.Taskentity;
 import com.examly.springapp.service.TaskService;
 import java.util.List;
@@ -23,6 +24,7 @@ public class TaskController {
         return output;
     }
 
+
     @GetMapping("/changeStatus")
     private Taskentity updatetaskStatus(@RequestParam("id") String id){
         return service.updatetaskStatus(id);
@@ -36,9 +38,9 @@ public class TaskController {
     private List<Taskentity> getallTasks(){
         return service.getallTasks();
     }
+
     @GetMapping("/getTask")
-    private Taskentity getTask(@RequestParam("id") String id)
-    {
+    private Taskentity getTask(@RequestParam("id") String id){
         return service.gettaskbyid(id);
     }
 
